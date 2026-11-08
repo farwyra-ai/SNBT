@@ -1,0 +1,1964 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com;">
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Utama - Wrosify</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            background: #000;
+        }
+
+        /* ========== SKY ANIMATION BACKGROUND ========== */
+        .sky-container {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            transition: background 3s ease;
+        }
+        .sky-dawn { background: linear-gradient(to bottom, #ffecd2 0%, #fcb69f 40%, #a1c4fd 100%); }
+        .sky-morning { background: linear-gradient(to bottom, #87CEEB 0%, #E0F6FF 50%, #fff9e6 100%); }
+        .sky-afternoon { background: linear-gradient(to bottom, #4facfe 0%, #00f2fe 100%); }
+        .sky-sunset { background: linear-gradient(to bottom, #fa709a 0%, #fee140 50%, #ff9a9e 100%); }
+        .sky-night { background: linear-gradient(to bottom, #0f0c29 0%, #302b63 50%, #24243e 100%); }
+
+        .sun {
+            position: absolute;
+            width: 80px; height: 80px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #ffd700 0%, #ff8c00 70%);
+            box-shadow: 0 0 40px #ffd700, 0 0 80px #ff8c00;
+            transition: all 3s ease;
+            z-index: 1;
+        }
+        .sun-dawn { top: 70%; left: 10%; opacity: 0.6; transform: scale(0.8); }
+        .sun-morning { top: 15%; left: 30%; opacity: 1; transform: scale(1); }
+        .sun-afternoon { top: 10%; left: 60%; opacity: 1; transform: scale(1.1); }
+        .sun-sunset { top: 60%; left: 85%; opacity: 0.8; transform: scale(1.2); background: radial-gradient(circle, #ff6b6b 0%, #ffd93d 70%); box-shadow: 0 0 40px #ff6b6b, 0 0 80px #ffd93d; }
+        .sun-night { top: 90%; left: 50%; opacity: 0; }
+
+        .moon {
+            position: absolute;
+            width: 60px; height: 60px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #fff 0%, #e0e0e0 50%, #999 100%);
+            box-shadow: 0 0 30px #fff, 0 0 60px rgba(255,255,255,0.3);
+            transition: all 3s ease;
+            z-index: 1;
+            opacity: 0;
+        }
+        .moon-night { top: 15%; left: 70%; opacity: 1; }
+        .moon-dawn { top: 90%; opacity: 0; }
+        .moon-morning { top: 90%; opacity: 0; }
+        .moon-afternoon { top: 90%; opacity: 0; }
+        .moon-sunset { top: 90%; opacity: 0; }
+
+        .stars {
+            position: absolute;
+            width: 100%; height: 100%;
+            opacity: 0;
+            transition: opacity 3s ease;
+            z-index: 0;
+        }
+        .stars-night { opacity: 1; }
+        .star {
+            position: absolute;
+            width: 2px; height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 2s infinite alternate;
+        }
+        @keyframes twinkle {
+            0% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+
+        .cloud {
+            position: absolute;
+            background: rgba(255,255,255,0.7);
+            border-radius: 100px;
+            opacity: 0.8;
+            z-index: 2;
+        }
+        .cloud::before {
+            content: '';
+            position: absolute;
+            background: rgba(255,255,255,0.7);
+            border-radius: 100px;
+        }
+        .cloud1 { width: 100px; height: 40px; top: 20%; animation: float 25s infinite linear; }
+        .cloud1::before { width: 50px; height: 50px; top: -25px; left: 10px; }
+        .cloud2 { width: 80px; height: 35px; top: 35%; animation: float 30s infinite linear; animation-delay: -10s; }
+        .cloud2::before { width: 60px; height: 40px; top: -20px; left: 15px; }
+        .cloud3 { width: 120px; height: 45px; top: 15%; animation: float 35s infinite linear; animation-delay: -5s; }
+        .cloud3::before { width: 70px; height: 55px; top: -30px; left: 20px; }
+        .cloud4 { width: 90px; height: 38px; top: 45%; animation: float 28s infinite linear; animation-delay: -15s; }
+        .cloud4::before { width: 55px; height: 45px; top: -22px; left: 12px; }
+
+        @keyframes float {
+            0% { left: -200px; }
+            100% { left: 110%; }
+        }
+
+        .bird {
+            position: absolute;
+            z-index: 3;
+            opacity: 0.7;
+        }
+        .bird svg {
+            width: 30px; height: 20px;
+            fill: #333;
+            animation: flap 0.5s infinite alternate;
+        }
+        .bird1 { top: 25%; animation: fly 20s infinite linear; }
+        .bird2 { top: 40%; animation: fly 25s infinite linear; animation-delay: -8s; }
+        .bird3 { top: 18%; animation: fly 22s infinite linear; animation-delay: -12s; }
+        @keyframes fly {
+            0% { left: -50px; }
+            100% { left: 110%; }
+        }
+        @keyframes flap {
+            0% { transform: scaleY(1); }
+            100% { transform: scaleY(0.5); }
+        }
+
+        .mountains {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 25%;
+            z-index: 4;
+        }
+        .mountain {
+            position: absolute;
+            bottom: 0;
+            width: 0; height: 0;
+            border-left: 150px solid transparent;
+            border-right: 150px solid transparent;
+            border-bottom: 200px solid #5a6e7c;
+        }
+        .mountain:nth-child(1) { left: -5%; border-bottom-color: #5a6e7c; border-left-width: 200px; border-right-width: 200px; border-bottom-width: 250px; }
+        .mountain:nth-child(2) { left: 20%; border-bottom-color: #4a5d6e; border-left-width: 180px; border-right-width: 180px; border-bottom-width: 300px; }
+        .mountain:nth-child(3) { left: 50%; border-bottom-color: #5a6e7c; border-left-width: 220px; border-right-width: 220px; border-bottom-width: 220px; }
+        .mountain:nth-child(4) { left: 75%; border-bottom-color: #4a5d6e; border-left-width: 190px; border-right-width: 190px; border-bottom-width: 280px; }
+
+        /* ========== HEADER ========== */
+        .header {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%;
+            padding: 15px 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 1000;
+            background: rgba(0,0,0,0.25);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .hamburger {
+            width: 35px; height: 30px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            z-index: 1001;
+        }
+        .hamburger span {
+            display: block;
+            width: 100%; height: 4px;
+            background: #fff;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(8px, 10px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(8px, -10px); }
+
+        .logo-wrosify {
+            font-size: 22px;
+            font-weight: 800;
+            color: #fff;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.6), 0 0 20px rgba(0,0,0,0.3);
+            letter-spacing: 1px;
+        }
+        .header-right {
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff;
+            text-shadow: 0 1px 6px rgba(0,0,0,0.6), 0 0 10px rgba(0,0,0,0.4);
+            letter-spacing: 0.5px;
+        }
+
+        /* ========== SIDEBAR ========== */
+        .sidebar {
+            position: fixed;
+            top: 0; left: -320px;
+            width: 320px; height: 100%;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(25px);
+            border-right: 1px solid rgba(255,255,255,0.3);
+            z-index: 999;
+            transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            padding-top: 80px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        .sidebar.open { left: 0; }
+        .sidebar-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .sidebar-overlay.active { opacity: 1; visibility: visible; }
+
+        .menu-item {
+            margin: 5px 15px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .menu-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+            cursor: pointer;
+            color: #fff;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+        }
+        .menu-header:hover { background: rgba(255,255,255,0.15); }
+        .dropdown-icon {
+            width: 20px; height: 20px;
+            transition: transform 0.3s ease;
+        }
+        .dropdown-icon.rotated { transform: rotate(180deg); }
+
+        .submenu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            background: rgba(0,0,0,0.2);
+            border-radius: 0 0 12px 12px;
+        }
+        .submenu.open { max-height: 300px; }
+        .submenu a, .submenu .menu-link {
+            display: block;
+            padding: 12px 20px 12px 35px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+            cursor: pointer;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+        }
+        .submenu a:hover, .submenu .menu-link:hover {
+            background: rgba(255,255,255,0.15);
+            border-left-color: #ffd700;
+            padding-left: 40px;
+        }
+        .coming-soon {
+            opacity: 0.7;
+            font-style: italic;
+        }
+
+        /* Back to home button in sidebar */
+        .sidebar-footer {
+            margin-top: auto;
+            padding: 20px 15px 30px;
+        }
+        .back-home-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .back-home-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102,126,234,0.4);
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        }
+        .back-home-btn svg {
+            width: 20px; height: 20px;
+            stroke: #fff;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        /* ========== SECTIONS ========== */
+        .section {
+            display: none;
+            min-height: 100vh;
+            padding: 100px 20px 50px;
+            position: relative;
+            z-index: 10;
+            animation: fadeInSection 0.5s ease;
+        }
+        .section.active {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        @keyframes fadeInSection {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* HOME SECTION */
+        .home-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: calc(100vh - 150px);
+        }
+        .main-title {
+            font-size: clamp(36px, 8vw, 72px);
+            font-weight: 800;
+            color: #fff;
+            text-align: center;
+            text-shadow: 0 3px 10px rgba(0,0,0,0.7), 0 0 30px rgba(0,0,0,0.4);
+            margin-bottom: 10px;
+            animation: fadeInUp 1s ease;
+        }
+        .main-subtitle {
+            font-size: clamp(18px, 4vw, 32px);
+            font-weight: 400;
+            color: #fff;
+            text-align: center;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.7), 0 0 20px rgba(0,0,0,0.4);
+            letter-spacing: 5px;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+        .time-indicator {
+            margin-top: 30px;
+            padding: 10px 25px;
+            background: rgba(0,0,0,0.35);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            animation: fadeInUp 1s ease 0.4s both;
+            border: 1px solid rgba(255,255,255,0.2);
+            text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+        }
+
+        /* PAGE CARD (shared) */
+        .page-card {
+            background: rgba(0,0,0,0.45);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255,255,255,0.25);
+            border-radius: 20px;
+            padding: 30px;
+            width: 100%;
+            max-width: 900px;
+            color: #fff;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        .page-title {
+            font-size: clamp(28px, 6vw, 48px);
+            font-weight: 800;
+            color: #fff;
+            text-align: center;
+            text-shadow: 0 3px 10px rgba(0,0,0,0.7);
+            margin-bottom: 30px;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ========== HITUNG RATA-RATA BARU ========== */
+        .config-section {
+            margin-bottom: 25px;
+        }
+        .config-section h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+        }
+        .input-group { margin-bottom: 15px; }
+        .input-group label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: #fff;
+            font-weight: 500;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+        }
+        .input-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.2);
+            color: #fff;
+            font-size: 16px;
+            font-family: 'Poppins', sans-serif;
+            outline: none;
+            transition: all 0.3s ease;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+        .input-group input::placeholder { color: rgba(255,255,255,0.6); }
+        .input-group input:focus { background: rgba(255,255,255,0.3); }
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 5px;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+        }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(102,126,234,0.4); }
+        .btn-success { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+        .btn-warning { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: #333; }
+        .btn-danger { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 100%); }
+        .btn-info { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+
+        /* Dynamic Table Styles */
+        .dynamic-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .dynamic-table th, .dynamic-table td {
+            padding: 12px 8px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.2);
+            min-width: 80px;
+        }
+        .dynamic-table th {
+            background: rgba(102,126,234,0.4);
+            font-weight: 600;
+            font-size: 13px;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+        }
+        .dynamic-table td {
+            background: rgba(255,255,255,0.05);
+        }
+        .dynamic-table td input {
+            width: 100%;
+            padding: 8px;
+            border: none;
+            border-radius: 6px;
+            background: rgba(255,255,255,0.15);
+            color: #fff;
+            font-size: 14px;
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+        }
+        .dynamic-table td input:focus {
+            background: rgba(255,255,255,0.25);
+            outline: 2px solid #667eea;
+        }
+        .dynamic-table .row-header {
+            background: rgba(118,75,162,0.4);
+            font-weight: 600;
+            min-width: 150px;
+        }
+        .dynamic-table .row-header input {
+            background: transparent;
+            font-weight: 600;
+            text-align: left;
+            color: #fff;
+        }
+
+        /* Review Section */
+        .review-section {
+            display: none;
+            margin-top: 25px;
+            padding: 20px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+        .review-section.show { display: block; animation: fadeIn 0.5s ease; }
+        
+        .review-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        .review-table th, .review-table td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .review-table th {
+            background: rgba(102,126,234,0.5);
+            font-weight: 600;
+        }
+        .review-table td {
+            background: rgba(255,255,255,0.08);
+        }
+
+        /* Result Section */
+        .result-section {
+            display: none;
+            margin-top: 25px;
+        }
+        .result-section.show { display: block; animation: fadeIn 0.5s ease; }
+        
+        .result-card {
+            background: rgba(0,0,0,0.4);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .result-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-align: center;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.5);
+        }
+        .result-value {
+            font-size: 42px;
+            font-weight: 800;
+            text-align: center;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            margin: 10px 0;
+        }
+        .result-subtitle {
+            font-size: 14px;
+            text-align: center;
+            opacity: 0.9;
+        }
+
+        .subject-average {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+            margin: 8px 0;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+        .subject-name { font-weight: 600; font-size: 16px; }
+        .subject-score { 
+            font-size: 24px; 
+            font-weight: 700; 
+            color: #ffd700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .final-result {
+            background: linear-gradient(135deg, rgba(102,126,234,0.3) 0%, rgba(118,75,162,0.3) 100%);
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .final-result .result-value {
+            font-size: 56px;
+            color: #ffd700;
+        }
+        .final-grade {
+            font-size: 28px;
+            font-weight: 700;
+            margin-top: 10px;
+            padding: 10px 30px;
+            border-radius: 30px;
+            display: inline-block;
+        }
+        .grade-a { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); color: #fff; }
+        .grade-b { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: #fff; }
+        .grade-c { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: #333; }
+        .grade-d { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 100%); color: #fff; }
+        .grade-e { background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%); color: #fff; }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        /* ========== JOKI TUGAS ========== */
+        .joki-text {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #fff;
+            margin-bottom: 20px;
+            text-align: center;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+        }
+        .joki-highlight {
+            font-size: 22px;
+            font-weight: 700;
+            margin: 25px 0;
+            padding: 15px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            border: 2px dashed rgba(255,255,255,0.4);
+            text-align: center;
+            color: #fff;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+        }
+        .wa-big-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 20px;
+            padding: 18px 35px;
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(37,211,102,0.3);
+            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+        .wa-big-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 30px rgba(37,211,102,0.5);
+        }
+        .wa-big-btn svg { width: 28px; height: 28px; fill: white; }
+
+        /* ========== MENU HARGA GRID ========== */
+        .harga-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            width: 100%;
+            max-width: 600px;
+            padding: 0 10px;
+        }
+        .harga-box {
+            background: rgba(0,0,0,0.45);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.25);
+            border-radius: 20px;
+            padding: 50px 20px 30px;
+            text-align: center;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 160px;
+        }
+        .harga-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+            border-color: rgba(255,255,255,0.5);
+        }
+        .harga-box-active {
+            background: linear-gradient(135deg, rgba(102,126,234,0.4) 0%, rgba(118,75,162,0.4) 100%);
+            border: 2px solid rgba(255,255,255,0.4);
+        }
+        .harga-box-active:hover {
+            background: linear-gradient(135deg, rgba(102,126,234,0.6) 0%, rgba(118,75,162,0.6) 100%);
+        }
+        .harga-box-disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .harga-box-disabled:hover {
+            transform: none;
+            border-color: rgba(255,255,255,0.25);
+        }
+        .harga-box-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+        .harga-box-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+        }
+        .harga-box-desc {
+            font-size: 12px;
+            opacity: 0.8;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+        }
+        .harga-detail {
+            animation: fadeInSection 0.4s ease;
+        }
+        .harga-back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 8px;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+        }
+        .harga-back-btn:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateX(-3px);
+        }
+        .harga-back-btn svg {
+            width: 16px; height: 16px;
+        }
+
+        /* ========== MENU HARGA TABLE ========== */
+        .harga-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .harga-table th, .harga-table td {
+            padding: 15px 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+            color: #fff;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+        }
+        .harga-table th {
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: rgba(0,0,0,0.25);
+        }
+        .harga-table td { font-size: 15px; }
+        .harga-table tr:hover td { background: rgba(255,255,255,0.05); }
+        .harga-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #fff;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+        .harga-badge.blue { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .harga-badge.green { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+        .harga-badge.gold { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+        .harga-note {
+            margin-top: 25px;
+            padding: 15px;
+            background: rgba(0,0,0,0.25);
+            border-radius: 10px;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #fff;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+        }
+        .harga-wa {
+            display: block;
+            margin-top: 20px;
+            padding: 14px;
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+        .harga-wa:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(37,211,102,0.4);
+        }
+
+        /* ========== COMING SOON ========== */
+        .coming-container {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .coming-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+            text-shadow: 0 3px 10px rgba(0,0,0,0.5);
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        .coming-title {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: #fff;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.7);
+        }
+        .coming-text {
+            font-size: 16px;
+            color: #fff;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+        }
+
+        /* ========== TRY OUT GALLERY SECTION ========== */
+        .tryout-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            width: 100%;
+            max-width: 1000px;
+            padding: 0 20px;
+            margin-top: 10px;
+        }
+        .tryout-image-card {
+            background: rgba(0,0,0,0.45);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255,255,255,0.25);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        .tryout-image-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255,255,255,0.5);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+        }
+        .tryout-image-card img {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            display: block;
+        }
+        .tryout-caption {
+            margin-top: 15px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+        }
+        .tryout-desc {
+            margin-top: 8px;
+            color: rgba(255,255,255,0.8);
+            font-size: 13px;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+            line-height: 1.5;
+        }
+        .tryout-btn-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        .tryout-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 28px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.2);
+            text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+            cursor: pointer;
+        }
+        .tryout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102,126,234,0.4);
+        }
+        .tryout-btn.outline {
+            background: transparent;
+            border: 2px solid rgba(255,255,255,0.4);
+        }
+        .tryout-btn.outline:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.7);
+        }
+
+        /* ========== BOTTOM LOGOS (HOME ONLY) ========== */
+        .bottom-left-logo {
+            position: fixed;
+            bottom: 25px; left: 25px;
+            z-index: 1000;
+            transition: transform 0.3s ease, filter 0.3s ease;
+            cursor: pointer;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(8px);
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            width: 55px; height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4), 0 0 0 3px rgba(255,255,255,0.1);
+            text-decoration: none;
+        }
+        .bottom-left-logo:hover {
+            transform: scale(1.15);
+            background: rgba(0,0,0,0.8);
+            border-color: rgba(255,255,255,0.6);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.5), 0 0 15px rgba(255,255,255,0.3);
+        }
+        .bottom-left-logo .logo-icon {
+            width: 28px; height: 28px;
+            filter: drop-shadow(0 1px 3px rgba(0,0,0,0.5));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .bottom-right-logo {
+            position: fixed;
+            bottom: 25px; right: 25px;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(8px);
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            width: 55px; height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4), 0 0 0 3px rgba(255,255,255,0.1);
+            text-decoration: none;
+        }
+        .bottom-right-logo:hover {
+            transform: scale(1.15);
+            background: rgba(0,0,0,0.8);
+            border-color: rgba(255,255,255,0.6);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.5), 0 0 15px rgba(37,211,102,0.3);
+        }
+        .bottom-right-logo .logo-icon {
+            width: 32px; height: 32px;
+            filter: drop-shadow(0 1px 3px rgba(0,0,0,0.5));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Drive OSN Modal */
+        .drive-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 15px;
+        }
+        .drive-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 16px;
+            padding: 25px 20px;
+            color: white;
+            text-align: center;
+            transition: 0.3s;
+            border: 2px solid rgba(255,255,255,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        .drive-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: 0.3s;
+        }
+        .drive-card:hover::before {
+            opacity: 1;
+        }
+        .drive-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        .drive-card.drive-2 {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        .drive-card.drive-2:hover {
+            box-shadow: 0 10px 30px rgba(245, 87, 108, 0.4);
+        }
+        .drive-icon {
+            font-size: 40px;
+            margin-bottom: 12px;
+        }
+        .drive-card h3 {
+            font-size: 22px;
+            margin-bottom: 8px;
+            color: white;
+        }
+        .drive-detail {
+            font-size: 14px;
+            margin: 6px 0;
+            opacity: 0.95;
+            line-height: 1.5;
+        }
+        .drive-price {
+            font-size: 28px;
+            font-weight: bold;
+            margin: 15px 0;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .drive-btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background: rgba(255,255,255,0.95);
+            color: #333;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+        .drive-btn:hover {
+            background: #fff;
+            transform: scale(1.05);
+        }
+        .drive-info-box {
+            background: rgba(0,0,0,0.05);
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 20px;
+            border-left: 4px solid #c44569;
+        }
+        .drive-info-box p {
+            font-size: 13px;
+            color: #555;
+            margin: 5px 0;
+            line-height: 1.6;
+        }
+        .drive-info-box strong {
+            color: #c44569;
+        }
+        @media (max-width: 600px) {
+            .drive-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .sidebar { width: 280px; left: -280px; }
+            .header-right { font-size: 12px; }
+            .logo-wrosify { font-size: 18px; }
+            .page-card { padding: 20px; max-width: 100%; }
+            .tryout-container { grid-template-columns: 1fr; max-width: 500px; }
+            .tryout-btn-group { flex-direction: column; align-items: center; }
+            .tryout-btn { width: 100%; max-width: 300px; justify-content: center; }
+            .harga-grid { grid-template-columns: 1fr; }
+            .dynamic-table { font-size: 12px; }
+            .dynamic-table th, .dynamic-table td { padding: 8px 4px; min-width: 60px; }
+            .final-result .result-value { font-size: 36px; }
+        }
+    </style>
+<base target="_blank">
+</head>
+<body>
+
+    <!-- SKY BACKGROUND -->
+    <div class="sky-container sky-morning" id="sky">
+        <div class="sun sun-morning" id="sun"></div>
+        <div class="moon moon-morning" id="moon"></div>
+        <div class="stars" id="stars"></div>
+        <div class="cloud cloud1"></div>
+        <div class="cloud cloud2"></div>
+        <div class="cloud cloud3"></div>
+        <div class="cloud cloud4"></div>
+        <div class="bird bird1">
+            <svg viewBox="0 0 30 20"><path d="M0 10 Q5 0 15 10 Q25 0 30 10 Q25 5 15 10 Q5 5 0 10Z"/></svg>
+        </div>
+        <div class="bird bird2">
+            <svg viewBox="0 0 30 20"><path d="M0 10 Q5 0 15 10 Q25 0 30 10 Q25 5 15 10 Q5 5 0 10Z"/></svg>
+        </div>
+        <div class="bird bird3">
+            <svg viewBox="0 0 30 20"><path d="M0 10 Q5 0 15 10 Q25 0 30 10 Q25 5 15 10 Q5 5 0 10Z"/></svg>
+        </div>
+        <div class="mountains">
+            <div class="mountain"></div>
+            <div class="mountain"></div>
+            <div class="mountain"></div>
+            <div class="mountain"></div>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <div class="header">
+        <div class="header-left">
+            <div class="hamburger" id="hamburger" onclick="toggleSidebar()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="logo-wrosify">WROSIFY</div>
+        </div>
+        <div class="header-right">Website Utama Wrosify</div>
+    </div>
+
+    <!-- SIDEBAR OVERLAY -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar" id="sidebar">
+        <div class="menu-item">
+            <div class="menu-header" onclick="toggleDropdown(this)">
+                <span>Bagian Akademik</span>
+                <svg class="dropdown-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="submenu">
+                <div class="menu-link" onclick="showSection('hitung'); toggleSidebar();">Hitung Rata-rata</div>
+                <div class="menu-link" onclick="showSection('joki'); toggleSidebar();">Joki Tugas</div>
+            </div>
+        </div>
+        <div class="menu-item">
+            <div class="menu-header" onclick="toggleDropdown(this)">
+                <span>Bagian TKA</span>
+                <svg class="dropdown-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="submenu">
+                <div class="menu-link coming-soon" onclick="showSection('tka'); toggleSidebar();">COMING SOON!</div>
+            </div>
+        </div>
+        <div class="menu-item">
+            <div class="menu-header" onclick="toggleDropdown(this)">
+                <span>Bagian SNBT</span>
+                <svg class="dropdown-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="submenu">
+                <div class="menu-link coming-soon" onclick="showSection('snbt'); toggleSidebar();">COMING SOON!</div>
+            </div>
+        </div>
+        <div class="menu-item">
+            <div class="menu-header" onclick="toggleDropdown(this)">
+                <span>Bagian OSN</span>
+                <svg class="dropdown-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="submenu">
+                <div class="menu-link" onclick="showSection('tryout'); toggleSidebar();">Try Out OSN (1,2,3,4,5 & TRY OUT AKBAR)</div>
+                <div class="menu-link" onclick="openDriveOsnModal(); toggleSidebar();">Drive OSN (Matematika (SMP&SMA))</div>
+            </div>
+        </div>
+        <div class="menu-item">
+            <div class="menu-header" onclick="toggleDropdown(this)">
+                <span>Menu Harga</span>
+                <svg class="dropdown-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="submenu">
+                <div class="menu-link" onclick="showSection('harga'); toggleSidebar();">Detail Harga</div>
+            </div>
+        </div>
+
+        <!-- BACK TO HOME BUTTON -->
+        <div class="sidebar-footer">
+            <div class="back-home-btn" onclick="showSection('home'); toggleSidebar();">
+                <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+                Kembali Ke Website Utama
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== HOME SECTION ==================== -->
+    <div class="section active" id="section-home">
+        <div class="home-content">
+            <h1 class="main-title">Website Utama</h1>
+            <p class="main-subtitle">WROSIFY</p>
+            <div class="time-indicator" id="timeIndicator">🌅 PAGI</div>
+        </div>
+
+        <!-- TIKTOK LOGO -->
+        <a href="https://tiktok.com/@wrosify" target="_blank" class="bottom-left-logo" title="TikTok @wrosify">
+            <div class="logo-icon">
+                <svg viewBox="0 0 24 24" fill="white" width="28" height="28">
+                    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.88-2.89 2.89 2.89 0 0 1 2.88-2.89c.2 0 .39.03.58.07V9.2a6.33 6.33 0 0 0-.58-.03A6.34 6.34 0 0 0 5.77 15.5a6.34 6.34 0 0 0 6.34 6.33 6.34 6.34 0 0 0 6.33-6.33V9.91a8.5 8.5 0 0 0 4.97 1.6V8.07a4.92 4.92 0 0 1-3.82-1.38z"/>
+                </svg>
+            </div>
+        </a>
+
+        <!-- WA LOGO -->
+        <a href="https://wa.me/6287765692166" target="_blank" class="bottom-right-logo" title="WhatsApp">
+            <div class="logo-icon">
+                <svg viewBox="0 0 24 24" fill="white" width="32" height="32">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                </svg>
+            </div>
+        </a>
+    </div>
+
+    <!-- ==================== HITUNG RATA-RATA BARU SECTION ==================== -->
+    <div class="section" id="section-hitung">
+        <h1 class="page-title">Hitung Rata-Rata</h1>
+        
+        <div class="page-card">
+            <!-- STEP 1: Configuration -->
+            <div id="step1" class="config-section">
+                <h3>📝 Konfigurasi Tabel Nilai</h3>
+                <div class="input-group">
+                    <label>Jumlah Pelajaran (Baris)</label>
+                    <input type="number" id="jumlahPelajaran" min="1" max="20" value="3" placeholder="Masukkan jumlah pelajaran...">
+                </div>
+                <div class="input-group">
+                    <label>Jumlah Semester (Kolom)</label>
+                    <input type="number" id="jumlahSemester" min="1" max="10" value="2" placeholder="Masukkan jumlah semester...">
+                </div>
+                <button class="btn" onclick="generateTable()">Buat Tabel</button>
+            </div>
+
+            <!-- STEP 2: Input Table -->
+            <div id="step2" style="display: none;">
+                <h3 style="margin-bottom: 15px;">✏️ Input Nilai</h3>
+                <p style="font-size: 13px; opacity: 0.8; margin-bottom: 15px;">
+                    Isi nama pelajaran di kolom paling kiri, dan nilai untuk setiap semester.
+                </p>
+                <div style="overflow-x: auto;">
+                    <table class="dynamic-table" id="nilaiTable">
+                        <thead id="tableHead"></thead>
+                        <tbody id="tableBody"></tbody>
+                    </table>
+                </div>
+                <div class="button-group">
+                    <button class="btn btn-success" onclick="reviewData()">Lanjutkan ➜</button>
+                    <button class="btn btn-danger" onclick="resetAll()">Reset</button>
+                </div>
+            </div>
+
+            <!-- STEP 3: Review -->
+            <div id="step3" class="review-section">
+                <h3 style="margin-bottom: 15px;">🔍 Review Data</h3>
+                <p style="font-size: 14px; margin-bottom: 15px;">Apakah data nilai sudah sesuai?</p>
+                <div id="reviewTableContainer"></div>
+                <div class="button-group">
+                    <button class="btn btn-warning" onclick="revisiTabel()">✏️ Revisi Tabel</button>
+                    <button class="btn btn-success" onclick="hitungRataRata()">📊 Hitung Rata-Rata</button>
+                </div>
+            </div>
+
+            <!-- STEP 4: Results -->
+            <div id="step4" class="result-section">
+                <div class="result-card">
+                    <div class="result-title">📚 Rata-Rata per Pelajaran</div>
+                    <div id="subjectAverages"></div>
+                </div>
+
+                <div class="final-result">
+                    <div class="result-title">🎓 Rata-Rata Akhir Semua Pelajaran</div>
+                    <div class="result-value" id="finalAverage">0</div>
+                    <div class="final-grade" id="finalGrade">-</div>
+                    <div class="result-subtitle" id="gradeDescription"></div>
+                </div>
+
+                <div class="button-group" style="margin-top: 25px;">
+                    <button class="btn btn-info" onclick="hitungUlang()">🔄 Hitung Ulang</button>
+                    <button class="btn" onclick="showSection('home')">🏠 Kembali ke Beranda</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== JOKI TUGAS SECTION ==================== -->
+    <div class="section" id="section-joki">
+        <h1 class="page-title">Joki Tugas</h1>
+        <div class="page-card" style="text-align: center; max-width: 500px;">
+            <p class="joki-text">
+                Butuh bantuan untuk mengerjakan tugas sekolah?<br>
+                Wrosify siap membantu berbagai mata pelajaran!
+            </p>
+            <div class="joki-highlight">
+                KLIK LOGO WA UNTUK JOKI TUGAS
+            </div>
+            <p class="joki-text" style="font-size: 14px; opacity: 0.85;">
+                Matematika • Fisika • Kimia • Biologi • Bahasa Inggris • Dan lainnya
+            </p>
+            <a href="https://wa.me/6287765692166" target="_blank" class="wa-big-btn">
+                <svg viewBox="0 0 24 24" width="28" height="28" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                Chat WhatsApp
+            </a>
+        </div>
+    </div>
+
+    <!-- ==================== TRY OUT OSN GALLERY SECTION ==================== -->
+    <div class="section" id="section-tryout">
+        <h1 class="page-title">Try Out OSN</h1>
+        <p style="color: #fff; text-align: center; margin-bottom: 25px; text-shadow: 0 1px 4px rgba(0,0,0,0.6); font-size: 15px; max-width: 600px;">
+            Tersedia Try Out 1 sampai 5 dan Try Out Akbar untuk jenjang SMP & SMA
+        </p>
+
+        <div class="page-card" style="max-width: 700px; margin-bottom: 20px;">
+            <h2 style="text-align: center; margin-bottom: 25px; text-shadow: 0 2px 6px rgba(0,0,0,0.5); font-size: 22px;">⚙️ Mekanisme Try Out</h2>
+
+            <div style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 25px;">
+                <div style="display: flex; align-items: center; gap: 15px; padding: 15px; background: rgba(255,255,255,0.08); border-radius: 12px; border-left: 4px solid #667eea;">
+                    <div style="font-size: 24px; font-weight: 800; color: #667eea; min-width: 40px; text-align: center; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">1</div>
+                    <div style="color: #fff; font-size: 15px; line-height: 1.6; text-shadow: 0 1px 3px rgba(0,0,0,0.5);">
+                        Nanti akan diberikan <strong>akun registrasi</strong> setelah melakukan pembayaran
+                    </div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 15px; padding: 15px; background: rgba(255,255,255,0.08); border-radius: 12px; border-left: 4px solid #764ba2;">
+                    <div style="font-size: 24px; font-weight: 800; color: #764ba2; min-width: 40px; text-align: center; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">2</div>
+                    <div style="color: #fff; font-size: 15px; line-height: 1.6; text-shadow: 0 1px 3px rgba(0,0,0,0.5);">
+                        Setelah itu, akan dikirimkan <strong>link grup WA (Try Out)</strong>
+                    </div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 15px; padding: 15px; background: rgba(255,255,255,0.08); border-radius: 12px; border-left: 4px solid #43e97b;">
+                    <div style="font-size: 24px; font-weight: 800; color: #43e97b; min-width: 40px; text-align: center; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">3</div>
+                    <div style="color: #fff; font-size: 15px; line-height: 1.6; text-shadow: 0 1px 3px rgba(0,0,0,0.5);">
+                        <strong>Website Try Out</strong> akan diberikan di grup WA yang telah dikirimkan
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: rgba(0,0,0,0.25); border-radius: 12px; padding: 20px; margin-bottom: 25px; border: 1px solid rgba(255,255,255,0.15);">
+                <h3 style="font-size: 16px; margin-bottom: 12px; color: #ffd700; text-shadow: 0 1px 3px rgba(0,0,0,0.5);">ℹ️ Info Tambahan</h3>
+                <ul style="color: #fff; font-size: 14px; line-height: 1.8; padding-left: 20px; margin: 0; text-shadow: 0 1px 3px rgba(0,0,0,0.5);">
+                    <li>Try Out bisa dikerjakan <strong>kapanpun</strong> (tanpa batasan waktu)</li>
+                    <li>Setiap Try Out dipastikan <strong>berbeda soal dan materinya</strong>, kecuali Try Out 5 dan Try Out Akbar karena merupakan Try Out dengan materi campuran</li>
+                </ul>
+            </div>
+
+            <h3 style="font-size: 18px; margin-bottom: 15px; text-align: center; text-shadow: 0 2px 6px rgba(0,0,0,0.5);">📋 Daftar Materi Try Out</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 25px;">
+                <div style="background: rgba(102,126,234,0.25); border: 1px solid rgba(102,126,234,0.4); border-radius: 12px; padding: 15px; text-align: center;">
+                    <div style="font-size: 13px; color: rgba(255,255,255,0.8); margin-bottom: 5px; text-shadow: 0 1px 3px rgba(0,0,0,0.5);">Try Out 1</div>
+                    <div style="font-size: 16px; font-weight: 700; color: #fff; text-shadow: 0 1px 4px rgba(0,0,0,0.5);">Aljabar</div>
+                </div>
+                <div style="background: rgba(118,75,162,0.25); border: 1px solid rgba(118,75,162,0.4); border-radius: 12px; padding: 15px; text-align: center;">
+                    <div style="font-size: 13px; color: rgba(255,255,255,0.8); margin-bottom: 5px; text-shadow: 0 1px 3px rgba(0,0,0,0.5);">Try Out 2</div>
+                    <div style="font-size: 16px; font-weight: 700; color: #fff; text-shadow: 0 1px 4px rgba(0,0,0,0.5);">Teori Bilangan</div>
+                </div>
+                <div style="background: rgba(67,233,123,0.2); border: 1px solid rgba(67,233,123,0.4); border-radius: 12px; padding: 15px; text-align: center;">
+                    <div style="font-size: 13px; color: rgba(255,255,255,0.8); margin-bottom: 5px; text-shadow: 0 1px 3px rgba(0,0,0,0.5);">Try Out 3</div>
+                    <div style="font-size: 16px; font-weight: 700; color: #fff; text-shadow: 0 1px 4px rgba(0,0,0,0.5);">Kombinatorika</div>
+                </div>
+                <div style="background: rgba(250,112,154,0.2); border: 1px solid rgba(250,112,154,0.4); border-radius: 12px; padding: 15px; text-align: center;">
+                    <div style="font-size: 13px; color: rgba(255,255,255,0.8); margin-bottom: 5px; text-shadow: 0 1px 3px rgba(0,0,0,0.5);">Try Out 4</div>
+                    <div style="font-size: 16px; font-weight: 700; color: #fff; text-shadow: 0 1px 4px rgba(0,0,0,0.5);">Geometri</div>
+                </div>
+                <div style="background: rgba(254,225,64,0.2); border: 1px solid rgba(254,225,64,0.4); border-radius: 12px; padding: 15px; text-align: center; grid-column: 1 / -1;">
+                    <div style="font-size: 13px; color: rgba(255,255,255,0.8); margin-bottom: 5px; text-shadow: 0 1px 3px rgba(0,0,0,0.5);">Try Out 5</div>
+                    <div style="font-size: 16px; font-weight: 700; color: #fff; text-shadow: 0 1px 4px rgba(0,0,0,0.5);">Campuran Semua Materi</div>
+                </div>
+                <div style="background: linear-gradient(135deg, rgba(102,126,234,0.3) 0%, rgba(118,75,162,0.3) 100%); border: 2px solid rgba(255,215,0,0.5); border-radius: 12px; padding: 18px; text-align: center; grid-column: 1 / -1;">
+                    <div style="font-size: 14px; color: #ffd700; margin-bottom: 5px; text-shadow: 0 1px 3px rgba(0,0,0,0.5); font-weight: 600;">✨ Try Out Akbar ✨</div>
+                    <div style="font-size: 18px; font-weight: 800; color: #fff; text-shadow: 0 2px 6px rgba(0,0,0,0.5);">Campuran Semua Materi</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tryout-btn-group">
+            <a href="https://wa.me/6287765692166?text=Halo%20Wrosify,%20saya%20mau%20pesan%20Try%20Out%20OSN" target="_blank" class="tryout-btn">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                Pesan Try Out Sekarang
+            </a>
+        </div>
+    </div>
+
+    <!-- ==================== MENU HARGA SECTION ==================== -->
+    <div class="section" id="section-harga">
+        <h1 class="page-title">Menu Harga</h1>
+        
+        <div class="harga-grid" id="hargaGrid">
+            <div class="harga-box harga-box-active" onclick="showHargaDetail('joki')">
+                <div class="harga-box-icon">📝</div>
+                <div class="harga-box-title">Joki Tugas</div>
+                <div class="harga-box-desc">Mulai dari Rp5.000</div>
+            </div>
+            <div class="harga-box" onclick="showHargaDetail('mapel')">
+                <div class="harga-box-icon">📚</div>
+                <div class="harga-box-title">Les Privat</div>
+                <div class="harga-box-desc">Per mapel & level</div>
+            </div>
+            <div class="harga-box" onclick="showHargaDetail('tryout')">
+                <div class="harga-box-icon">🎯</div>
+                <div class="harga-box-title">Try Out OSN</div>
+                <div class="harga-box-desc">Paket lengkap</div>
+            </div>
+            <div class="harga-box harga-box-disabled">
+                <div class="harga-box-icon">🔒</div>
+                                <div class="harga-box-title">Coming Soon</div>
+                <div class="harga-box-desc">Fitur baru segera hadir</div>
+            </div>
+        </div>
+
+        <!-- HARGA DETAIL: JOKI TUGAS -->
+        <div class="harga-detail" id="harga-joki" style="display: none;">
+            <button class="harga-back-btn" onclick="backToHargaGrid()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+                Kembali
+            </button>
+            <div class="page-card" style="max-width: 600px;">
+                <h2 style="text-align: center; margin-bottom: 20px; text-shadow: 0 2px 6px rgba(0,0,0,0.5);">📋 Joki Tugas</h2>
+                <table class="harga-table">
+                    <thead>
+                        <tr>
+                            <th>Jenis Tugas</th>
+                            <th>Level</th>
+                            <th>Harga</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Tugas Harian</td>
+                            <td><span class="harga-badge green">SD</span></td>
+                            <td>Mulai Rp5.000</td>
+                        </tr>
+                        <tr>
+                            <td>Tugas Harian</td>
+                            <td><span class="harga-badge blue">SMP</span></td>
+                            <td>Mulai Rp10.000</td>
+                        </tr>
+                        <tr>
+                            <td>Tugas Harian</td>
+                            <td><span class="harga-badge gold">SMA</span></td>
+                            <td>Mulai Rp15.000</td>
+                        </tr>
+                        <tr>
+                            <td>PR / Latihan</td>
+                            <td><span class="harga-badge green">SD</span></td>
+                            <td>Mulai Rp8.000</td>
+                        </tr>
+                        <tr>
+                            <td>PR / Latihan</td>
+                            <td><span class="harga-badge blue">SMP</span></td>
+                            <td>Mulai Rp10.000</td>
+                        </tr>
+                        <tr>
+                            <td>PR / Latihan</td>
+                            <td><span class="harga-badge gold">SMA</span></td>
+                            <td>Mulai Rp15.000</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="harga-note">
+                    💡 <strong>Catatan:</strong> Harga dapat disesuaikan berdasarkan tingkat kesulitan dan deadline tugas. Hubungi admin untuk negosiasi harga.
+                </div>
+                <a href="https://wa.me/6287765692166" target="_blank" class="harga-wa">
+                    💬 Pesan via WhatsApp
+                </a>
+            </div>
+        </div>
+
+        <!-- HARGA DETAIL: LES PRIVAT -->
+        <div class="harga-detail" id="harga-mapel" style="display: none;">
+            <button class="harga-back-btn" onclick="backToHargaGrid()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+                Kembali
+            </button>
+            <div class="page-card" style="max-width: 600px;">
+                <h2 style="text-align: center; margin-bottom: 20px; text-shadow: 0 2px 6px rgba(0,0,0,0.5);">📚 Les Privat</h2>
+                <table class="harga-table">
+                    <thead>
+                        <tr>
+                            <th>Mata Pelajaran</th>
+                            <th>Level</th>
+                            <th>Harga/Sesi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Matematika</td>
+                            <td><span class="harga-badge green">SD</span></td>
+                            <td>Rp20.000</td>
+                        </tr>
+                        <tr>
+                            <td>Matematika</td>
+                            <td><span class="harga-badge blue">SMP</span></td>
+                            <td>Rp20.000</td>
+                        </tr>
+                        <tr>
+                            <td>Matematika</td>
+                            <td><span class="harga-badge gold">SMA</span></td>
+                            <td>Rp30.000</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="harga-note">
+                    💡 <strong>Catatan:</strong> Per sesi adalah 1 jam - 2 jam. Paket 3 sesi mendapat diskon 10%.
+                </div>
+                <a href="https://wa.me/6287765692166" target="_blank" class="harga-wa">
+                    💬 Pesan via WhatsApp
+                </a>
+            </div>
+        </div>
+
+        <!-- HARGA DETAIL: TRY OUT OSN -->
+        <div class="harga-detail" id="harga-tryout" style="display: none;">
+            <button class="harga-back-btn" onclick="backToHargaGrid()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+                Kembali
+            </button>
+            <div class="page-card" style="max-width: 600px;">
+                <h2 style="text-align: center; margin-bottom: 20px; text-shadow: 0 2px 6px rgba(0,0,0,0.5);">🎯 Try Out OSN</h2>
+                <table class="harga-table">
+                    <thead>
+                        <tr>
+                            <th>Paket</th>
+                            <th>Isi</th>
+                            <th>Harga</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Try Out 1-3</td>
+                            <td>3x Try Out</td>
+                            <td><span class="harga-badge">Rp30.000</span></td>
+                        </tr>
+                        <tr>
+                            <td>Try Out 1-5</td>
+                            <td>5x Try Out</td>
+                            <td><span class="harga-badge blue">Rp50.000</span></td>
+                        </tr>
+                        <tr>
+                            <td>Paket Lengkap</td>
+                            <td>TO 1-5 + TO Akbar</td>
+                            <td><span class="harga-badge gold">Rp70.000</span></td>
+                        </tr>
+                        <tr>
+                            <td>TO Akbar Only</td>
+                            <td>1x Try Out Akbar</td>
+                            <td>Rp20.000</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="harga-note">
+                    💡 <strong>Catatan:</strong> Pembahasan bisa diminta secara privat ke admin group, atau diskusi di group chat nya.
+                </div>
+                <a href="https://wa.me/6287765692166" target="_blank" class="harga-wa">
+                    💬 Pesan via WhatsApp
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== COMING SOON SECTIONS ==================== -->
+    <div class="section" id="section-tka">
+        <div class="coming-container">
+            <div class="coming-icon">🚧</div>
+            <h2 class="coming-title">Coming Soon!</h2>
+            <p class="coming-text">Bagian TKA sedang dalam pengembangan.<br>Nantikan update terbaru dari Wrosify!</p>
+        </div>
+    </div>
+
+    <div class="section" id="section-snbt">
+        <div class="coming-container">
+            <div class="coming-icon">🚧</div>
+            <h2 class="coming-title">Coming Soon!</h2>
+            <p class="coming-text">Bagian SNBT sedang dalam pengembangan.<br>Nantikan update terbaru dari Wrosify!</p>
+        </div>
+    </div>
+
+    <!-- ==================== DRIVE OSN MODAL ==================== -->
+    <div id="driveOsnModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 2000; justify-content: center; align-items: center; padding: 20px;">
+        <div class="page-card" style="max-width: 600px; position: relative;">
+            <button onclick="closeDriveOsnModal()" style="position: absolute; top: 15px; right: 15px; background: none; border: none; color: #fff; font-size: 24px; cursor: pointer;">✕</button>
+            <h2 style="text-align: center; margin-bottom: 20px;">📁 Drive OSN Matematika</h2>
+            <div class="drive-grid">
+                <div class="drive-card">
+                    <div class="drive-icon">🏫</div>
+                    <h3>DRIVE 1</h3>
+                    <p class="drive-detail">Materi OSN Matematika SMP/SMA</p>
+                    <p class="drive-detail">6 EBOOK, 400 SOAL, OSK LENGKAP, OSP LENGKAP, OSN LENGKAP</p>
+                    <p class="drive-price">Rp10.000</p>
+                    <a href="https://wa.me/6287765692166?text=Halo%20Wrosify,%20saya%20mau%20beli%20Drive%20OSN%20Matematika%20SMP" target="_blank" class="drive-btn">Beli Sekarang</a>
+                </div>
+                <div class="drive-card drive-2">
+                    <div class="drive-icon">🎓</div>
+                    <h3>DRIVE 2</h3>
+                    <p class="drive-detail">Materi OSN Matematika SMP/SMA</p>
+                    <p class="drive-detail">80+ EBOOK, 4000 SOAL, OSK LENGKAP, OSP LENGKAP, OSN LENGKAP</p>
+                    <p class="drive-price">Rp50.000</p>
+                    <a href="https://wa.me/6287765692166?text=Halo%20Wrosify,%20saya%20mau%20beli%20Drive%20OSN%20Matematika%20SMA" target="_blank" class="drive-btn">Beli Sekarang</a>
+                </div>
+            </div>
+            <div class="drive-info-box">
+                <p><strong>✅ Isi Drive:</strong></p>
+                <p>• Kumpulan soal OSN tahun-tahun sebelumnya, dan soal dari olimpiade, penulis, dan lainnya</p>
+                <p>• Materi teori dan rumus penting</p>
+                <p>• Update berkala</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ========== SIDEBAR FUNCTIONS ==========
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            const hamburger = document.getElementById('hamburger');
+            
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        function toggleDropdown(element) {
+            const submenu = element.nextElementSibling;
+            const icon = element.querySelector('.dropdown-icon');
+            
+            submenu.classList.toggle('open');
+            icon.classList.toggle('rotated');
+        }
+
+        // ========== SECTION NAVIGATION ==========
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show target section
+            const target = document.getElementById('section-' + sectionId);
+            if (target) {
+                target.classList.add('active');
+            }
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // ========== HARGA FUNCTIONS ==========
+        function showHargaDetail(type) {
+            document.getElementById('hargaGrid').style.display = 'none';
+            document.getElementById('harga-' + type).style.display = 'block';
+        }
+
+        function backToHargaGrid() {
+            document.getElementById('hargaGrid').style.display = 'grid';
+            const details = document.querySelectorAll('.harga-detail');
+            details.forEach(d => d.style.display = 'none');
+        }
+
+        // ========== DRIVE OSN MODAL ==========
+        function openDriveOsnModal() {
+            document.getElementById('driveOsnModal').style.display = 'flex';
+        }
+
+        function closeDriveOsnModal() {
+            document.getElementById('driveOsnModal').style.display = 'none';
+        }
+
+        // Close modal on outside click
+        document.getElementById('driveOsnModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeDriveOsnModal();
+            }
+        });
+
+        // ========== SKY ANIMATION ==========
+        function updateSky() {
+            const hour = new Date().getHours();
+            const sky = document.getElementById('sky');
+            const sun = document.getElementById('sun');
+            const moon = document.getElementById('moon');
+            const stars = document.getElementById('stars');
+            const timeIndicator = document.getElementById('timeIndicator');
+            
+            let skyClass, sunClass, moonClass, starsClass, timeText, timeEmoji;
+            
+            if (hour >= 5 && hour < 7) {
+                skyClass = 'sky-dawn'; sunClass = 'sun-dawn'; moonClass = 'moon-dawn';
+                starsClass = ''; timeText = 'FAJAR'; timeEmoji = '🌅';
+            } else if (hour >= 7 && hour < 12) {
+                skyClass = 'sky-morning'; sunClass = 'sun-morning'; moonClass = 'moon-morning';
+                starsClass = ''; timeText = 'PAGI'; timeEmoji = '☀️';
+            } else if (hour >= 12 && hour < 15) {
+                skyClass = 'sky-afternoon'; sunClass = 'sun-afternoon'; moonClass = 'moon-afternoon';
+                starsClass = ''; timeText = 'SIANG'; timeEmoji = '🌤️';
+            } else if (hour >= 15 && hour < 18) {
+                skyClass = 'sky-sunset'; sunClass = 'sun-sunset'; moonClass = 'moon-sunset';
+                starsClass = ''; timeText = 'SORE'; timeEmoji = '🌇';
+            } else {
+                skyClass = 'sky-night'; sunClass = 'sun-night'; moonClass = 'moon-night';
+                starsClass = 'stars-night'; timeText = 'MALAM'; timeEmoji = '🌙';
+            }
+            
+            sky.className = 'sky-container ' + skyClass;
+            sun.className = 'sun ' + sunClass;
+            moon.className = 'moon ' + moonClass;
+            stars.className = 'stars ' + starsClass;
+            
+            if (timeIndicator) {
+                timeIndicator.textContent = timeEmoji + ' ' + timeText;
+            }
+        }
+
+        // ========== STARS GENERATION ==========
+        function generateStars() {
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 2 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // ========== HITUNG RATA-RATA FUNCTIONS ==========
+        let tableData = [];
+        let numSubjects = 0;
+        let numSemesters = 0;
+
+        function generateTable() {
+            numSubjects = parseInt(document.getElementById('jumlahPelajaran').value) || 3;
+            numSemesters = parseInt(document.getElementById('jumlahSemester').value) || 2;
+
+            if (numSubjects < 1 || numSubjects > 20) {
+                alert('Jumlah pelajaran harus antara 1-20!');
+                return;
+            }
+            if (numSemesters < 1 || numSemesters > 10) {
+                alert('Jumlah semester harus antara 1-10!');
+                return;
+            }
+
+            // Generate table header
+            const thead = document.getElementById('tableHead');
+            let headerHTML = '<tr><th class="row-header">Nama Pelajaran</th>';
+            for (let i = 1; i <= numSemesters; i++) {
+                headerHTML += `<th>Semester ${i}</th>`;
+            }
+            headerHTML += '</tr>';
+            thead.innerHTML = headerHTML;
+
+            // Generate table body
+            const tbody = document.getElementById('tableBody');
+            let bodyHTML = '';
+            for (let i = 0; i < numSubjects; i++) {
+                bodyHTML += '<tr>';
+                bodyHTML += `<td class="row-header"><input type="text" placeholder="Pelajaran ${i+1}" id="subject_${i}"></td>`;
+                for (let j = 0; j < numSemesters; j++) {
+                    bodyHTML += `<td><input type="number" min="0" max="100" placeholder="0" id="nilai_${i}_${j}" oninput="validateInput(this)"></td>`;
+                }
+                bodyHTML += '</tr>';
+            }
+            tbody.innerHTML = bodyHTML;
+
+            // Show step 2, hide step 1
+            document.getElementById('step1').style.display = 'none';
+            document.getElementById('step2').style.display = 'block';
+        }
+
+        function validateInput(input) {
+            let val = parseFloat(input.value);
+            if (val < 0) input.value = 0;
+            if (val > 100) input.value = 100;
+        }
+
+        function reviewData() {
+            tableData = [];
+            let emptyFields = [];
+
+            for (let i = 0; i < numSubjects; i++) {
+                const subjectName = document.getElementById(`subject_${i}`).value.trim() || `Pelajaran ${i+1}`;
+                const rowData = {
+                    subject: subjectName,
+                    scores: []
+                };
+
+                for (let j = 0; j < numSemesters; j++) {
+                    const scoreInput = document.getElementById(`nilai_${i}_${j}`).value;
+                    if (scoreInput === '') {
+                        emptyFields.push(`${subjectName} - Semester ${j+1}`);
+                    }
+                    rowData.scores.push(scoreInput === '' ? null : parseFloat(scoreInput));
+                }
+                tableData.push(rowData);
+            }
+
+            if (emptyFields.length > 0) {
+                if (!confirm(`Ada ${emptyFields.length} nilai yang belum diisi. Lanjutkan dengan nilai 0 untuk yang kosong?`)) {
+                    return;
+                }
+                // Fill empty with 0
+                tableData.forEach(row => {
+                    row.scores = row.scores.map(s => s === null ? 0 : s);
+                });
+            }
+
+            // Show review table
+            let reviewHTML = '<table class="review-table"><thead><tr><th>Pelajaran</th>';
+            for (let i = 1; i <= numSemesters; i++) {
+                reviewHTML += `<th>Semester ${i}</th>`;
+            }
+            reviewHTML += '</tr></thead><tbody>';
+
+            tableData.forEach(row => {
+                reviewHTML += `<tr><td style="font-weight:600">${row.subject}</td>`;
+                row.scores.forEach(score => {
+                    const displayScore = score !== null ? score : 0;
+                    const color = displayScore >= 80 ? '#43e97b' : displayScore >= 60 ? '#fee140' : displayScore >= 40 ? '#fa709a' : '#ff6b6b';
+                    reviewHTML += `<td style="color:${color}; font-weight:600">${displayScore}</td>`;
+                });
+                reviewHTML += '</tr>';
+            });
+            reviewHTML += '</tbody></table>';
+
+            document.getElementById('reviewTableContainer').innerHTML = reviewHTML;
+            document.getElementById('step2').style.display = 'none';
+            document.getElementById('step3').classList.add('show');
+        }
+
+        function revisiTabel() {
+            document.getElementById('step3').classList.remove('show');
+            document.getElementById('step2').style.display = 'block';
+            
+            // Restore data to inputs
+            tableData.forEach((row, i) => {
+                const subjectInput = document.getElementById(`subject_${i}`);
+                if (subjectInput) subjectInput.value = row.subject;
+                row.scores.forEach((score, j) => {
+                    const scoreInput = document.getElementById(`nilai_${i}_${j}`);
+                    if (scoreInput && score !== null) scoreInput.value = score;
+                });
+            });
+        }
+
+        function hitungRataRata() {
+            document.getElementById('step3').classList.remove('show');
+            document.getElementById('step4').classList.add('show');
+
+            let totalAllSubjects = 0;
+            let validSubjects = 0;
+            let subjectAveragesHTML = '';
+
+            tableData.forEach(row => {
+                const validScores = row.scores.filter(s => s !== null && !isNaN(s));
+                const sum = validScores.reduce((a, b) => a + b, 0);
+                const average = validScores.length > 0 ? (sum / validScores.length).toFixed(2) : 0;
+                
+                if (validScores.length > 0) {
+                    totalAllSubjects += parseFloat(average);
+                    validSubjects++;
+                }
+
+                const color = average >= 80 ? '#43e97b' : average >= 60 ? '#fee140' : average >= 40 ? '#fa709a' : '#ff6b6b';
+                
+                subjectAveragesHTML += `
+                    <div class="subject-average">
+                        <span class="subject-name">${row.subject}</span>
+                        <span class="subject-score" style="color: ${color}">${average}</span>
+                    </div>
+                `;
+            });
+
+            document.getElementById('subjectAverages').innerHTML = subjectAveragesHTML;
+
+            // Calculate final average
+            const finalAverage = validSubjects > 0 ? (totalAllSubjects / validSubjects).toFixed(2) : 0;
+            document.getElementById('finalAverage').textContent = finalAverage;
+
+            // Determine grade
+            let grade, gradeClass, description;
+            const avg = parseFloat(finalAverage);
+            
+            if (avg >= 85) {
+                grade = 'A';
+                gradeClass = 'grade-a';
+                description = 'Sangat Baik! 🌟';
+            } else if (avg >= 70) {
+                grade = 'B';
+                gradeClass = 'grade-b';
+                description = 'Baik! 👍';
+            } else if (avg >= 60) {
+                grade = 'C';
+                gradeClass = 'grade-c';
+                description = 'Cukup Baik 📖';
+            } else if (avg >= 40) {
+                grade = 'D';
+                gradeClass = 'grade-d';
+                description = 'Perlu Perbaikan 📚';
+            } else {
+                grade = 'E';
+                gradeClass = 'grade-e';
+                description = 'Perlu Belajar Lebih Giat! 💪';
+            }
+
+            const gradeEl = document.getElementById('finalGrade');
+            gradeEl.textContent = `Nilai: ${grade}`;
+            gradeEl.className = `final-grade ${gradeClass}`;
+            document.getElementById('gradeDescription').textContent = description;
+        }
+
+        function hitungUlang() {
+            document.getElementById('step4').classList.remove('show');
+            document.getElementById('step1').style.display = 'block';
+            document.getElementById('jumlahPelajaran').value = 3;
+            document.getElementById('jumlahSemester').value = 2;
+            tableData = [];
+        }
+
+        function resetAll() {
+            if (confirm('Yakin ingin mengulang dari awal?')) {
+                hitungUlang();
+            }
+        }
+
+        // ========== INITIALIZATION ==========
+        document.addEventListener('DOMContentLoaded', function() {
+            generateStars();
+            updateSky();
+            setInterval(updateSky, 60000); // Update every minute
+        });
+
+        // Keyboard shortcut to close modal
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeDriveOsnModal();
+            }
+        });
+    </script>
+</body>
+</html>
